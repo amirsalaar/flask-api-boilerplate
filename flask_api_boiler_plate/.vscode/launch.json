@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Python: Run Tests",
+      "type": "python",
+      "module": "flask",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "env": {
+        "FLASK_APP": "manage.py",
+        "FLASK_ENV": "testing",
+        "FLASK_DEBUG": "1"
+      },
+      "args": ["tests", "debug"],
+      "jinja": true
+    },
+    {
       "name": "Python: Flask",
       "type": "python",
       "request": "launch",
