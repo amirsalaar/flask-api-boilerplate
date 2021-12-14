@@ -15,24 +15,28 @@ def run_test_with_option(option: str = None):
     from shlex import split
 
     if option is None:
-        pytest.main(
-            [
-                "--disable-pytest-warnings",
-                "--cov=.",
-                "--cov-report=xml",
-                "--cov-config=.coveragerc",
-                "--cov-append",
-            ]
+        raise SystemExit(
+            pytest.main(
+                [
+                    "--disable-pytest-warnings",
+                    "--cov=.",
+                    "--cov-report=xml",
+                    "--cov-config=.coveragerc",
+                    "--cov-append",
+                ]
+            )
         )
     elif option == "coverage":
-        pytest.main(
-            [
-                "--disable-pytest-warnings",
-                "--cov=.",
-                "--cov-report=html",
-                "--cov-config=.coveragerc",
-                "--cov-append",
-            ]
+        raise SystemExit(
+            pytest.main(
+                [
+                    "--disable-pytest-warnings",
+                    "--cov=.",
+                    "--cov-report=html",
+                    "--cov-config=.coveragerc",
+                    "--cov-append",
+                ]
+            )
         )
     elif option == "watch":
         run(
