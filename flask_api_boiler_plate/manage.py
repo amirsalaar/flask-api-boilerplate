@@ -19,10 +19,12 @@ def run_test_with_option(option: str = None):
             pytest.main(
                 [
                     "--disable-pytest-warnings",
-                    "--cov=.",
+                    "--cov=src",
+                    "--cov-report=term:skip-covered",
                     "--cov-report=xml",
                     "--cov-config=.coveragerc",
                     "--cov-append",
+                    "--junitxml=./tests/coverage/junit.xml",
                 ]
             )
         )
@@ -32,6 +34,7 @@ def run_test_with_option(option: str = None):
                 [
                     "--disable-pytest-warnings",
                     "--cov=.",
+                    "--cov-report=term",
                     "--cov-report=html",
                     "--cov-config=.coveragerc",
                     "--cov-append",
