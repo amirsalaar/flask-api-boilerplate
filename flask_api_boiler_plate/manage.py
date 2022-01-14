@@ -1,10 +1,8 @@
+"""Manager script to run the commands on the Flask API."""
 import os
-import pytest
 import click
-from dotenv import load_dotenv
 from app import create_app
 
-load_dotenv()
 app = create_app()
 
 
@@ -15,32 +13,21 @@ def run_test_with_option(option: str = None):
     from shlex import split
 
     if option is None:
-        raise SystemExit(
-            pytest.main(
-                [
-                    "--disable-pytest-warnings",
-                    "--cov=src",
-                    "--cov-report=term:skip-covered",
-                    "--cov-report=xml",
-                    "--cov-config=.coveragerc",
-                    "--cov-append",
-                    "--junitxml=./tests/coverage/junit.xml",
-                ]
-            )
+        run(
+            [
+                "pytest",
+                "--disable-pytest-warnings",
+                "--cov=lib",
+                "--cov-config=.coveragerc",
+                "--cov-report=term",
+                "--cov-report=xml",
+                "--cov-report=html",
+                "--junitxml=./tests/coverage/junit.xml",
+                "--cov-append",
+                "--no-cov-on-fail",
+            ]
         )
-    elif option == "coverage":
-        raise SystemExit(
-            pytest.main(
-                [
-                    "--disable-pytest-warnings",
-                    "--cov=.",
-                    "--cov-report=term",
-                    "--cov-report=html",
-                    "--cov-config=.coveragerc",
-                    "--cov-append",
-                ]
-            )
-        )
+
     elif option == "watch":
         run(
             split(
@@ -58,8 +45,12 @@ def run_test_with_option(option: str = None):
 
 
 if __name__ == "__main__":
+    HOST = os.getenv("FLASK_RUN_HOST", default="127.0.0.1")
+    PORT = os.getenv("FLASK_RUN_PORT", default=5000)
+    DEBUG = os.getenv("FLASK_DEBUG", default=False)
+
     app.run(
-        host=os.getenv("FLASK_RUN_HOST"),
-        port=os.getenv("FLASK_RUN_PORT"),
-        debug=os.getenv("FLASK_DEBUG"),
+        host=HOST,
+        port=PORT,
+        debug=DEBUG,
     )

@@ -5,18 +5,21 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pytest = "*"
-pytest-mock = "*"
-pytest-cov = "*"
-python-dotenv = "*"
-pytest-watch = "*"
 flask-cors = "*"
+python-dotenv = "*"
 
 [dev-packages]
 black = "*"
 flake8 = "*"
 flake8-docstrings = "*"
 pre-commit = "*"
+pytest = "*"
+pytest-mock = "*"
+pytest-cov = "*"
+pytest-watch = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
+
+[pipenv]
+allow_prereleases = true
