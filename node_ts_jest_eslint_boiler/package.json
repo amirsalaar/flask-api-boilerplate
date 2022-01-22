@@ -18,8 +18,7 @@
     }
   },
   "lint-staged": {
-    "./**/*.ts": "npm run lint:fix",
-    "./**/*.{js,json}": "npm run format"
+    "./**/*.{js,json,ts}": "npm run lint:fix && npm run format"
   },
   "keywords": [],
   "author": "",
