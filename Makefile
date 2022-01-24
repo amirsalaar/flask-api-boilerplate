@@ -1,4 +1,5 @@
 local-setup:
+	puython pip install --upgrade pip
 	pip install pipenv
 	SYSTEM_VERSION_COMPAT=1 \
 		PIPENV_IGNORE_VIRTUALENVS=1 \
