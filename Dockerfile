@@ -16,8 +16,6 @@ RUN mkdir -p /app/logs \
 
 
 EXPOSE 8080
-ENV APP_ENV production
-ENV ENV prod
 ENV FLASK_APP manage.py
 ENV FLASK_RUN_PORT=8080
 ENV FLASK_RUN_HOST=0.0.0.0
@@ -25,17 +23,23 @@ ENV FLASK_DEBUG=0
 
 #############################################
 # Test container from a common base
-FROM build AS flask-tests
-ARG GITLAB_PROJECT_ID
+FROM build AS unit-tests
+
+ARG app_env=dev
 
 # install dev dependencies which has the required packages for running tests
 RUN pipenv install --dev --system --deploy --ignore-pipfile
 
-ENV GITLAB_PROJECT_ID ${GITLAB_PROJECT_ID}
+ENV APP_ENV=${app_env}
+
 CMD ["pytest"]
 
 #############################################
 # Deploy container
 FROM build AS deploy
+
+ARG app_env
+
+ENV APP_ENV=${app_env}
 
 CMD ["flask", "run"]
