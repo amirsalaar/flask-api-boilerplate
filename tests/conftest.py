@@ -1,5 +1,4 @@
 import pytest
-from pytest_mock.plugin import MockerFixture
 from app import create_app
 
 
