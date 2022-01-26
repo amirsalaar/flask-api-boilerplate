@@ -8,12 +8,10 @@ local-setup:
 	pipenv run pre-commit install # runs the pre-commit CLI command from within pipenv
 	pipenv run  pre-commit autoupdate # runs the pre-commit CLI command from within pipenv
 	pipenv shell # activates the virtual environment you isntalled with pipenv
-	export FLASK_APP=manage.py
 run:
-	flask run
+	python app.py
 tests:
-	export FLASK_APP=manage.py
-	flask tests
+	pytest
 remote-build:
 	docker build --target build -t PROJECT-NAME:build .
 remote-test:

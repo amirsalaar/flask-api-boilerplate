@@ -32,7 +32,7 @@ ARG GITLAB_PROJECT_ID
 RUN pipenv install --dev --system --deploy --ignore-pipfile
 
 ENV GITLAB_PROJECT_ID ${GITLAB_PROJECT_ID}
-CMD ["flask", "tests"]
+CMD ["pytest"]
 
 #############################################
 # Deploy container
