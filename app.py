@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from waitress import serve
 
 
 def create_app(config={}):
@@ -8,7 +9,7 @@ def create_app(config={}):
     # app.config.from_object("app.config.setting")
     # app.config.from_object("app.config.secure")
     CORS(app, supports_credentials=True)
-    app.config = config
+    app.config.update(config)
     return app
 
 
@@ -18,8 +19,11 @@ if __name__ == "__main__":
     PORT = os.getenv("FLASK_RUN_PORT", default=5000)
     DEBUG = os.getenv("FLASK_DEBUG", default=False)
 
-    app.run(
-        host=HOST,
-        port=PORT,
-        debug=DEBUG,
-    )
+    if DEBUG:
+        app.run(
+            host=HOST,
+            port=PORT,
+            debug=DEBUG,
+        )
+    else:
+        serve(app, host=HOST, port=PORT)

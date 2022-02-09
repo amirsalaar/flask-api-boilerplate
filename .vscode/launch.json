@@ -11,7 +11,7 @@
       "request": "launch",
       "console": "integratedTerminal",
       "env": {
-        "FLASK_APP": "manage.py",
+        "FLASK_APP": "app.py",
         "FLASK_ENV": "testing",
         "FLASK_DEBUG": "1"
       },
@@ -24,7 +24,7 @@
       "request": "launch",
       "module": "flask",
       "env": {
-        "FLASK_APP": "manage.py",
+        "FLASK_APP": "app.py",
         "FLASK_ENV": "development"
       },
       "args": ["run"],
