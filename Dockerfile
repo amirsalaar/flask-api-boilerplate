@@ -1,34 +1,42 @@
 #############################################
 # Base container with all necessary deps
-FROM python:3.10 AS build
+FROM python:3.10.3 AS build
 
-# load necessary packages
-COPY . /app
+ARG app_env
+
+# Set up environment variables
+ENV YOUR_ENV=${app_env} \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_VERSION=1.0.0 \
+    FLASK_RUN_PORT=8080 \
+    FLASK_RUN_HOST=0.0.0.0 \
+    FLASK_DEBUG=0
+
+# System deps:
+RUN python -m pip install --upgrade pip \
+    && pip3 install "poetry==$POETRY_VERSION" --no-cache-dir
+
+# Copy only requirements to cache them in docker layer
 WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
 
-# 1. Local access and error logs will be written here
-# 2. Install pipenv
-# 3. Install dependencies from Pipfile.lock (dev dependencies wont be installed)
-RUN mkdir -p /app/logs \
-    && python -m pip install --upgrade pip \
-    && pip3 install --no-cache-dir pipenv \
-    && pipenv install --system --deploy --ignore-pipfile
+# 1. Disable virtualenv creation with poetry
+# 2. Install poetry deps
+RUN poetry config virtualenvs.create false \
+    && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
 
-
-EXPOSE 8080
-ENV FLASK_APP manage.py
-ENV FLASK_RUN_PORT=8080
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_DEBUG=0
+COPY . /app
 
 #############################################
 # Test container from a common base
 FROM build AS unit-tests
 
 ARG app_env=dev
-
-# install dev dependencies which has the required packages for running tests
-RUN pipenv install --dev --system --deploy --ignore-pipfile
 
 ENV APP_ENV=${app_env}
 
@@ -39,7 +47,9 @@ CMD ["pytest"]
 FROM build AS deploy
 
 ARG app_env
+ARG app_port=8080
 
 ENV APP_ENV=${app_env}
+EXPOSE ${app_port}
 
-CMD ["flask", "run"]
+CMD ["python3", "app.py"]

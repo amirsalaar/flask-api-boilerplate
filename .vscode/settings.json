@@ -1,10 +1,10 @@
 {
   "python.linting.enabled": true,
-  "python.linting.pylintEnabled": false,
+  "python.linting.pylintEnabled": true,
   "python.linting.lintOnSave": true,
-  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Enabled": false,
   "python.linting.flake8Path": "flake8",
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "autopep8",
   "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
@@ -12,5 +12,5 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "files.insertFinalNewline": true
-  },
+  }
 }

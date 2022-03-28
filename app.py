@@ -2,6 +2,9 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from waitress import serve
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_app(config={}):
@@ -10,6 +13,7 @@ def create_app(config={}):
     # app.config.from_object("app.config.secure")
     CORS(app, supports_credentials=True)
     app.config.update(config)
+
     return app
 
 
