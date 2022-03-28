@@ -1,37 +1,18 @@
-## Documentation
+# Documentation
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+This is an open-source Flask API template to get developers speed up their development process. To contribute to the project, simply fork it and make your changes and submit a pull request.
 
-## Local Development Setup
+# Dependencies and Setup
 
-### Environment Variables
+Following dependencies are used to run the project:
 
-We are using `dotenv` package to utilize environment variables in this project. Refer to `.env.example` file in the repo to see the existing environment variables. Then make a new copy of this file and rename it to `.env` in the root of the project.
-
-## Tests:
-
-Test scripts are located in `manage.py > tests`. To run the tests you have three options to run them. You must have following environment variable set before running tests from the comand line:
-
-```bash
-export FLASK_APP=manage.py
-
-```
-
-1. Running in **watch** mode: will keep your tests watching for changes and run them
-   ```bash
-   flask tests watch
-   ```
-2. Running in **debug** mode: will prompt you to debugging console if any error is thrown during running tests
-   ```bash
-   flask tests debug
-   ```
-3. Running in in coverage mode: will generate html files of the coverage report. You can open `./tests/coverage/html_report/index.html` to see the whole report.
-
-   ```bash
-   flask tests coverage
-   ```
-
-4. Runnning without passing any parameters: will run the whole tests and generates `coverage.xml` report which needs to be committed with your MR.
-   ```bash
-   flask tests
-   ```
+| Dependency Name | Description                                                                                                                                                                              |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `poetry`        | Dependency and package management.                                                                                                                                                       |
+| `pytest`        | We are using pytest as our unit testing framework.                                                                                                                                       |
+| `Flask`         | This boilerplate provides a Flask production-ready API template, so we use Flask as our main framework.                                                                                  |
+| `autopep8`      | This is used for styling and formatting our Python code.                                                                                                                                 |
+| `flake8`        | This is used as our linting style.                                                                                                                                                       |
+| `pre-commit`    | We use `pre-commit` to manage our `git` hooks. There are few hooks that is installed by default in this repo <br /> for `pre-commit` and they are mentioned in `.pre-commit-config.yaml` |
+| `python-dotenv` | This is used to load `.env` files into our environment.                                                                                                                                  |
+| `waitress`      | We use this library to create a production-ready server.                                                                                                                                 |
