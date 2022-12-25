@@ -1,14 +1,15 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
-    -   id: trailing-whitespace
--   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: 'v1.6.0'  # Use the sha / tag you want to point at
+      - id: trailing-whitespace
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
     hooks:
-    -   id: autopep8
--   repo: https://github.com/pycqa/flake8
-    rev: '4.0.1'  # pick a git hash / tag to point to
+      - id: black
+        args: [--config=pyproject.toml]
+  - repo: https://github.com/pycqa/flake8
+    rev: "4.0.1" # pick a git hash / tag to point to
     hooks:
-    -   id: flake8
+      - id: flake8
     additional_dependencies: [flake8-docstrings]
