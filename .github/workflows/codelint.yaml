@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install and run black
         run: |
-          changed_python_files=$(git diff --diff-filter=d --name-only origin/$TARGET_COMMIT..HEAD | grep "\.py$" | grep -vE "config|examples|fabfile|manage.py|migrations|venv|build" | tr '\n' ' ' || true)
+          changed_python_files=$(git diff --diff-filter=d --name-only origin/$TARGET_COMMIT..HEAD | grep "\.py$" | grep -vE "manage.py|migrations|.venv|build" | tr '\n' ' ' || true)
           if [ -n "$changed_python_files" ];then pip3 install black;else exit 0; fi
           black --check -v --config ${{ github.workspace }}/pyproject.toml $changed_python_files
   isort-check:
@@ -42,6 +42,6 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install and run isort
         run: |
-          changed_python_files=$(git diff --diff-filter=d --name-only origin/$TARGET_COMMIT..HEAD | grep "\.py$" | grep -vE "config|examples|fabfile|manage.py|migrations|venv|build|__init__.py" | tr '\n' ' ' || true)
+          changed_python_files=$(git diff --diff-filter=d --name-only origin/$TARGET_COMMIT..HEAD | grep "\.py$" | grep -vE "manage.py|migrations|.venv|build" | tr '\n' ' ' || true)
           if [ -n "$changed_python_files" ];then pip3 install isort;else exit 0; fi
           isort -v --check --profile black --settings-path ${{ github.workspace }}/pyproject.toml --atomic $changed_python_files
