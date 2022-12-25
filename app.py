@@ -1,13 +1,16 @@
 import os
+
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from waitress import serve
-from dotenv import load_dotenv
 
 load_dotenv()
 
 
 def create_app(config={}):
+    """Create a Flask application using the app factory pattern."""
+
     app = Flask(__name__)
     # app.config.from_object("app.config.setting")
     # app.config.from_object("app.config.secure")
