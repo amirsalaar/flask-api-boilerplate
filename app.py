@@ -23,8 +23,8 @@ def create_app(config={}):
 if __name__ == "__main__":
     app = create_app()
     HOST = os.getenv("FLASK_RUN_HOST", default="127.0.0.1")
-    PORT = os.getenv("FLASK_RUN_PORT", default=5000)
-    DEBUG = os.getenv("FLASK_DEBUG", default=False)
+    PORT = int(os.getenv("FLASK_RUN_PORT", default="5000"))
+    DEBUG = bool(os.getenv("FLASK_DEBUG", default=None))
 
     if DEBUG:
         app.run(
