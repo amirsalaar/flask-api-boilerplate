@@ -11,6 +11,8 @@
   "python.linting.lintOnSave": true,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": "flake8",
+  "python.linting.mypyCategorySeverity.error": "Error",
+  "python.linting.mypyCategorySeverity.note": "Information",
   "python.formatting.provider": "none",
   "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
