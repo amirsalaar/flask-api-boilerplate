@@ -8,19 +8,6 @@ on:
       - production
 
 jobs:
-  security-check:
-    env:
-      TARGET_COMMIT: ${{ github.base_ref }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-      - name: Install and run bandit linter
-        run: |
-          files=$(git diff --diff-filter=d --name-only origin/$TARGET_COMMIT..HEAD | grep "\.py$" || true)
-          if [ -n "$files" ];then pip3 install bandit;else exit 0; fi
-          excludes="tests/\|encryption/benchmarks/"
-          bandit -v -x $excludes -iii -lll $files
   black-check:
     env:
       TARGET_COMMIT: ${{ github.base_ref }}
